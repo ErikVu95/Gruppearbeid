@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        div {
+            font-size: 300%;
+            user-select: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <script>
+        // model
+        var points = 100;
+        var pointsPerClick = 1;
+        var smileyIndex = 0;
+        var smileyOne = '😀';
+        var smileyTwo = '😁';
+        var smileyThree= '😈';
+        var Cheated = false;
+        var showText = '';
+        var red = Math.floor(Math.random() * 256)  ;
+        var green = Math.floor(Math.random() * 256)  ;
+        var blue = Math.floor(Math.random() * 256)  ;
+
+        // controller
+        function doClick() {
+            points += pointsPerClick;
+            smileyIndex = getNextSmileyIndex(smileyIndex);
+            let red = Math.floor(Math.random() * 256 );
+            let green = Math.floor(Math.random() * 256 );
+            let blue = Math.floor(Math.random() * 256 );
+            farge(red, green, blue);
+            updateView();
+        }
+        farge(red, green, blue) 
+            function farge(red, green, blue) {
+                let change = document.body
+                change.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
+            }
+        function buyUpgrade() {
+            if (points < 10) return;
+            points -= 10;
+            pointsPerClick++;
+            updateView();
+        }
+
+        function buyUpgrade2() {
+            if (points < 50) return;
+            points -= 50;
+            pointsPerClick += 5;
+            updateView();
+        }
+        function restart() {
+            Cheated = false;
+            points = 0;
+            pointsPerClick = 1;
+            smileyIndex = 0;
+            showText = '';
+            updateView();
+
+        }
+
+        function cheat() {
+            if (points < 100) return;
+            points -= 100;
+            pointsPerClick /= 8;
+            Cheated = true;
+            smileyIndex = 2;
+            showText ='Fucking cheater!';
+            updateView();
+        }
+
+
+
+        // 😂 😈
+        // view
+        updateView();
+        function updateView() {
+            var smiley = getSmiley(smileyIndex);
+            document.getElementById('app').innerHTML = `
+                <div id="image" onclick="doClick()">${smiley}</div>
+                <div id="pointsInfo">${points}</div>
+                <p>${showText}</p>
+                <button onclick="buyUpgrade()">Kjøp oppgradering (10 poeng)</button> </br>
+                <button onclick="buyUpgrade2()">Kjøp oppgradering (50 poeng)</button> </br>
+                <button onclick="restart()">Restart</button>
+                <button onclick="cheat()">Cheat (100 poeng)</button>
+            `;
+        }
+
+        // hjelpefunksjoner
+        function getSmiley(aSmileyIndex) {
+            if(aSmileyIndex == 0) return smileyOne;
+            if(aSmileyIndex == 1) return smileyTwo;
+            if(Cheated == true) return smileyThree
+            
+            // if(aSmileyIndex == 2) return smileyThree;
+            return '';
+        }
+
+        function getNextSmileyIndex(aSmileyIndex) {
+            if(Cheated == false){
+                    const maxSmileyIndex = 1;
+                aSmileyIndex++;
+                if (aSmileyIndex > maxSmileyIndex) {
+                    aSmileyIndex = 0;
+                }
+            }
+           
+           
+          
+            // else (aSmileyIndex = 2) 
+            return aSmileyIndex;
+            
+        }
+
+        //if (smileyIndex = 2) {
+          //  var smiley = '😈';
+        //}
+    </script>
+</body>
+
+</html>
