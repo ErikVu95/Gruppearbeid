@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MVC ARRAY SPEEDRUN ANY%</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <h1>Påske codealong med apekattene i Team 3</h1>
+
+
+    <script>
+
+        //hjelpevariabler
+
+        let appDiv = document.getElementById('app');
+
+
+        //model
+
+        let godteri = ['giflar ', 'big mac', 'smash', 'karamell'];
+        let add = '';
+
+        //view
+        view();
+        function view() {
+            let html = '';
+            
+            for (i = 0; i < godteri.length; i++) {
+                html += `
+            <h1 onclick="selectindex(${i})">${godteri[i]} 
+            <button onclick="slett(${i})">SLETT</button> 
+            <button onclick="endre(${i})">ENDRE</button> </h1>
+
+        `
+            }
+
+            html += `
+            <input type= "text" placeholder= "add text" oninput="add = this.value">
+            <button onclick="leggeTil()" >Legg til</button>
+            <button onclick="fjern()" >Slett</button>
+        `
+            appDiv.innerHTML = html;
+        }
+
+        //controller
+        
+        function leggeTil() {
+            if (add != '')
+            godteri.push(add)
+            add = '';
+            view();
+            
+        }
+
+        function slett(index) {
+            godteri.splice(index, 1)
+            view();
+        }
+
+        function endre(index) {
+            if (add == '') return;
+            godteri[index] = add;
+            add = '';
+            view();
+        }
+
+        function fjern() {
+            godteri.split(i, 1)
+        } 
+        //hjelpefunksjon
+        function selectindex (indexinArray) {
+            index = indexinArray
+            
+        }
+
+    </script>
+</body>
+
+</html>

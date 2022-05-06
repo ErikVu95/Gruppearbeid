@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team 3 Hangman</title>
+    <style>
+
+
+
+
+    </style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+//hjelpevariabel
+let appDiv = document.getElementById('app');
+
+//model
+let Hangman = ['pizza', 'brus', 'godteri', 'kylling', 'pannekaker', 'musikk'];
+let word = Hangman[Math.floor(Math.random() * Hangman.length)];
+let add = '';
+let win = 'Gjett ord';
+let hintText = '';
+let randomChar = word[Math.floor(Math.random() * word.length)]
+let attempts = 0;
+let attemptsLeft = 5;
+
+let hintIndex = 0;
+let hintword = word.split("")
+let correctWord = []
+
+// <input type="number" onkeydown="if (event.code === 'Enter') addNumber(this);" />
+// onkeydown="if(event.code=== 'Enter'  yourFunction()")
+//view
+makeUnderscore();
+view();
+function view() {
+    let html = '';
+    html += `
+    <h1>Hangman</h1>
+    <h3>${correctWord.join('')}</h3>
+    <h3>${win}</h3>
+    <h3>${hintText}</h3>
+    <h3>Antall Forsøk: ${attempts}. Du har ${attemptsLeft} forsøk igjen</h3>
+    `
+    html += `
+    <input type="text" id="textField" placeholder="Gjett en bokstav" maxlength = "1" autofocus="autofocus" onchange="add = this.value, checkWord(), focusText()"/>
+    <button onclick="checkWord(),focusText(); ">Sjekk</button>
+    <button onclick="hint(),focusText()">Hint</button>
+    `
+    appDiv.innerHTML = html;
+}
+
+function viewWin() {
+    let html = '';
+    html += `Du har vunnet `
+    html += `<button onclick="window.location.reload(true)">Restart</button>`
+    appDiv.innerHTML = html;
+}
+
+function focusText(){
+    document.getElementById("textField").focus();
+    
+}
+function checkWord(){
+console.log(add)
+if(word.includes(add)){
+    for(let i= 0; i< word.length; i++){
+        console.log(word[i])
+ 
+        if (add === word[i]){
+            correctWord[i] = add+ ' ';
+          
+            win = `Du gjettet "${add}". Det er riktig!`
+            view();
+            
+        }
+    }
+    if(!correctWord.includes ('_ ')){
+        viewWin();
+    }
+
+}
+   
+    else {
+    win = `Du gjettet "${add}". Det er feil, prøv igjen.`
+    attempts += 1
+    attemptsLeft--
+    console.log(attempts)
+    if (attempts == 5) {
+        alert('du suger')
+    }
+    view();
+    }
+   
+}
+
+function hint() {
+   
+  if(hintword.length == 0) return
+   hintIndex ++;
+   if(hintIndex == 1){
+       hintText += `Ordet inneholder bokstaven ${randomChar} </br>`
+        let findI = hintword.indexOf(randomChar)
+       hintword.splice(findI,1)
+       
+       console.log(hintword)
+   }
+  
+   if(hintIndex == 2){
+    let newRandomChar = hintword[Math.floor(Math.random() * hintword.length)]
+       hintText += `Ordet inneholder bokstaven ${newRandomChar} </br>`
+        let findI = hintword.indexOf(newRandomChar)
+       hintword.splice(findI,1)
+     
+       console.log(hintword)
+   }
+   if(hintIndex == 3){
+    let newRandomChar = hintword[Math.floor(Math.random() * hintword.length)]
+       hintText += `Ordet inneholder bokstaven ${newRandomChar} </br>`
+        let findI = hintword.indexOf(newRandomChar)
+       hintword.splice(findI,1)
+
+       console.log(hintword)
+   }
+   
+    view();
+ }
+        
+function makeUnderscore(){ 
+for(let i = 0; i < word.length; i++){
+correctWord.push('_ ')
+    }
+}
+</script>
+</body>
+</html>

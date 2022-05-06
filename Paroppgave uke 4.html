@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paroppgave uke 4</title>
+
+    <style>
+        img {
+            height: 300px;
+            width: 300px;
+            border: solid;
+            margin-top: 100px;
+        }
+
+        body {
+            text-align: center;
+            background-image: url('https://i.pinimg.com/originals/ec/5d/01/ec5d01013ac50bd433c854e4851ec3f2.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        div {
+            font-size: 45px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app"></div>
+
+    <script>
+        //  var appDiv = document.getElementById('app');
+        //model
+
+        var svar = '';
+        var robotSvar = '';
+        var vinnerInfo = '';
+            //winnercount
+            //losercount
+            //tie   ( i++ )
+            // ${123 === 234 ? ''; variabel} eller ${123 || ''} hvis 123 har en verdi
+
+        //view
+        updateView();
+        function updateView() {
+            document.getElementById('app').innerHTML = `
+        <img src="https://i.pinimg.com/originals/10/63/0f/10630fc0635e98fe4df2002d2937d3f3.jpg" 
+        onclick="klikk('stein')" />
+        <img src="https://homehardware.sirv.com/products/4464/4464115/!crayola-3-pack-kids-my-first-scissors-home-hardware-a.jpg?cw=100.0000%25&ch=100.0000%25&scale.option=fill&w=400&h=0"
+        onclick="klikk('saks')" />
+        <img src="https://lh3.googleusercontent.com/-mjGNMNDISESFlXmmLvH14qF0xEfB44_6dgcOB9Pih6yacZFR-TAZSlS2grdnQb8-TXbfQR0wHPZuICKnLtcK3yc8Zs6DYdTYgk=s400"
+        onclick="klikk('papir')" />  
+        
+        <div>Du har trykket på ${svar}</div>
+        <div>Roboten har valgt ${robotSvar}</div>
+        <div> ${vinnerInfo}</div>
+        `;
+        }
+        updateView();
+
+        //controller
+        function klikk(ting) {
+            var robot = Math.floor(Math.random() * 3) + 1;
+            console.log('Robot valgte: ' + robot)
+            svar = ting;
+            vinnerInfo = '';
+
+            if (robot == 1) {robotSvar = 'stein';}
+
+            if (robot == 2) {robotSvar = 'saks';}
+
+            if (robot == 3) {robotSvar = 'papir';}
+
+            if (svar == robotSvar) {vinnerInfo = 'Uavgjort!';}
+
+
+
+            if (svar == 'stein' && robotSvar == 'papir') {
+                vinnerInfo = 'Du tapte!';
+            }
+            if (svar == 'stein' && robotSvar == 'saks') {
+                vinnerInfo = 'Du vant!';
+            }
+            if (svar == 'saks' && robotSvar == 'papir') {
+                vinnerInfo = 'Du vant!';
+            }
+            if (svar == 'saks' && robotSvar == 'stein') {
+                vinnerInfo = 'Du tapte!';
+            }
+            if (svar == 'papir' && robotSvar == 'stein') {
+                vinnerInfo = 'Du vant!';
+            }
+            if (svar == 'papir' && robotSvar == 'saks') {
+                vinnerInfo = 'Du tapte!';
+            }
+
+            updateView();
+        }
+    </script>
+
+</body>
+
+</html>

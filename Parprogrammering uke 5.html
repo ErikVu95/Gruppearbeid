@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            text-align: center; 
+            background-image: url('https://cdn.discordapp.com/attachments/960495270171398175/961910898316967946/unknown.png');
+            background-repeat: no-repeat; 
+            background-size: cover;
+        }
+        
+        #overskrift{
+            
+            text-shadow: 10px 10px 10px rgb(25, 100, 50);
+        }
+
+        #horizontalOne{
+            box-shadow: 10px 10px 10px rgb(76, 211, 235);
+        }
+        .textFields {
+            position: relative;
+            /* top: 0;
+            left: 0; */
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 0px;
+            align-items: center;
+            
+        }
+        .individualTextField{
+            margin-top: 0px;
+            font-size: 20px;
+            
+        }
+        
+        h1 {
+            color: white;
+        }
+
+        div {
+            color: black;
+            font-size: 30px;
+        }
+        /* shimmer.style.backgroundColor = ‘rgba(255, 255, 255, 0.5) */
+        .inputText {
+            background-color: rgb(255, 255, 255, 0.7);
+            display: justify;
+            border: solid black 1px;
+            box-shadow: 10px 10px 10px rgb(47, 141, 158);
+        }
+
+        button {
+            height: 45px;
+            margin-left: 30px;
+            
+        }
+
+        #addButton{
+            height: 100px;
+            width: 100px;
+            margin-left: 0px;
+            box-shadow: 10px 10px 10px rgb(25, 100, 50);
+            font-family: fantasy;
+            background-image: url('https://i.pinimg.com/originals/90/fe/cd/90fecdd5ea1ea969971e1d8484568060.jpg');
+            background-size: cover;
+            opacity: 1;
+            image-rendering: auto;
+            color: white;
+            font-size: large;
+            padding-bottom: 50px;
+        
+        }
+
+        #delButton {
+            height:34px;
+            width: 200px;
+            float: right;
+            
+        }
+   
+        
+       
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    
+    <script>
+        //hjelpevariabel
+        let showDiv = document.getElementById('app');
+
+        let cars = [];
+
+        let carsAllInfo = {
+            name: '',
+            color: '',
+            price: '',
+            quantity: '',
+        };
+
+        let isBlank = true;
+      
+
+        //view
+        show();
+        function show() {
+            let html = `
+           <h1 id="overskrift">Erik og Viktor's bruktbil forhandler</h1> <hr id="horizontalOne">
+            <div class="textFields">
+                <input type="text" class ="individualTextField" placeholder="Navn" oninput="carsAllInfo.name = this.value"> </br>
+                <input type="text" class="individualTextField" placeholder="Farge" oninput="carsAllInfo.color = this.value"> </br>
+                <input type="text" class="individualTextField" placeholder="Pris" oninput="carsAllInfo.price = this.value"> </br>
+                <input type="text" class="individualTextField" placeholder="Antall" oninput="carsAllInfo.quantity = this.value"><br></br>
+            <div class="textField">
+            <button id="addButton" onclick="addItems()">Add car</button></br></br>
+            `;
+
+            for (let i = 0; i < cars.length; i++) {
+                const item = cars[i];
+                html += `<div class="inputText">Du har valgt en <strong>${item.name}</strong>. Fargen er <strong>${item.color}</strong>. Du ønsker en pris på <strong>${item.price}</strong> NOK. Antall: <strong>${item.quantity}</strong><button id="delButton" onclick="deleteCar(${i})">Delete</button></div> </br>`;
+            console.log('')
+            }
+        
+            showDiv.innerHTML = html;
+        }
+
+        //controller
+
+
+
+
+        function addItems() {
+
+
+            if(carsAllInfo.name == '' || carsAllInfo.color == '' || carsAllInfo.price == '' || carsAllInfo.quantity == ''){
+                alert("Please enter all input fields in order to add a car to the list")
+                return;
+            }
+
+            cars.push(carsAllInfo);
+            carsAllInfo = { name: '', color: '', price: '', quantity: '' };
+            show();
+        }
+    
+       function deleteCar(index){
+        cars.splice(index, 1);
+        show();
+       }
+       
+       
+
+    </script>
+
+
+</body>
+
+</html>
+
